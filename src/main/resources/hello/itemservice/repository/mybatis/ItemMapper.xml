@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- XML -->
+<mapper namespace="hello.itemservice.repository.mybatis.ItemMapper">
+<!-- 자바 코드가 아니기 때문에 resources 에 넣는다. -->
+
+    <!--  useGeneratedKeys 데이터베이스가 키를 생성해 주는 Identity 전략 일 때 사용  -->
+    <!--  키의 속성 이름을 지정한다. Insert 가 끝나면 item 객체의 id 속성에 생성된 값이 입력된다.  -->
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into item (item_name, price, quantity)
+        values (#{itemName}, #{price}, #{quantity})
+    </insert>
+    <!--  #{itemName}, #{price}, #{quantity} 각 파라미터는 ItemMapper 의 Save 메서드 Item 객체로 바인딩 된다. -->
+    <!--  #{} => jdbc 의 ? 를 치환한다고 생각하면 됨  -->
+
+    <update id="update">
+        update item
+        set item_name=#{updateParam.itemName},
+            price=#{updateParam.price},
+            quantity=#{updateParam.quantity}
+        where id = #{id}
+    </update>
+
+    <select id="findById" resultType="Item">
+        select id, item_name, price, quantity
+        from item
+        where id = #{id}
+    </select>
+
+    <select id="findAll" resultType="Item">
+        select id, item_name, price, quantity
+        from item
+        <where>
+            <if test="itemName != null and itemName != ''">
+                and item_name like concat('%', #{itemName}, '%')
+            </if>
+            <if test="maxPrice != null">
+                and price &lt;= #{maxPrice}
+            </if>
+        </where>
+    </select>
+
+</mapper>
