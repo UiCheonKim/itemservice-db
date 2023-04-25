@@ -8,16 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import javax.sql.DataSource;
 
 
 @Slf4j
 //@Import(MemoryConfig.class) // MemoryConfig.class 를 설정 파일로 사용
 //@Import(JdbcTemplateV3Config.class)
-@Import(JpaConfig.class)
+//@Import(JpaConfig.class)
 //@Import(SpringDataJpaConfig.class)
+@Import(QuerydslConfig.class)
 //@Import(MyBatisConfig.class)
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web")
 // 컴포넌트 스캔을 hello.itemservice.web 범위로 한정

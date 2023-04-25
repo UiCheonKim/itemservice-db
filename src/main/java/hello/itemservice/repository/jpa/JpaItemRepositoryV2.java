@@ -55,7 +55,7 @@ public class JpaItemRepositoryV2 implements ItemRepository {
         // StringUtils - 스프링에서 제공하는 유틸리티 클래스로 null 이나 공백을 체크해주는 기능 등 제공
         if (StringUtils.hasText(itemName) && maxPrice != null){ // itemName, maxPrice 둘 다 값이 있을 때
 //            return repository.findByItemNameLikeAndPriceLessThanEqual("%" + itemName + "%", maxPrice); // 너무 길다
-            return repository.findItems("%" + itemName + "%", maxPrice);
+            return repository.findItems("%" + itemName + "%", maxPrice); // % 를 넣어주는건 like 검색을 위함
         } else if (StringUtils.hasText(itemName)) { // itemName 값만 있을 때
             return repository.findByItemNameLike("%" + itemName + "%");
         } else if (maxPrice != null) { // maxPrice 값만 있을 때
